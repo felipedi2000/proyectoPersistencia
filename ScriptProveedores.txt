@@ -1,0 +1,140 @@
+alter session set "_ORACLE_SCRIPT"=true;
+DROP USER FERIA_LIBRO_COMP CASCADE;
+CREATE USER FERIA_LIBRO_COMP IDENTIFIED BY A;
+GRANT CONNECT, RESOURCE TO FERIA_LIBRO_COMP;
+ALTER USER FERIA_LIBRO_COMP DEFAULT TABLESPACE USERS QUOTA UNLIMITED ON USERS;
+CONN FERIA_LIBRO_COMP/A
+
+
+/*==============================================================*/
+/* Table: AUTOR_LIBRO                                           */
+/*==============================================================*/
+create table AUTOR_LIBRO 
+(
+   ID_AUTOR             NUMBER(10)              not null,
+   ID_LIBRO             NUMBER(10)              not null,
+   ISBN                 VARCHAR2(10)            not null,
+   constraint PK_AUTOR_LIBRO primary key (ID_AUTOR, ID_LIBRO, ISBN)
+);
+
+/*==============================================================*/
+/* Table: COMPRAS                                               */
+/*==============================================================*/
+create table COMPRAS 
+(
+   ID_COMPRA            NUMBER(10)              not null,
+   ID_PERSONA           NUMBER(10)              not null,
+   FECHA                DATE                 not null,
+   constraint PK_COMPRAS primary key (ID_COMPRA)
+);
+
+
+/*==============================================================*/
+/* Table: DETALLES_COMPRA                                              */
+/*==============================================================*/
+create table DETALLES_COMPRA 
+(
+   ID_DETALLE           NUMBER(10)              not null,
+   ID_COMPRA            NUMBER(10)              not null,
+   ID_LIBRO             NUMBER(10)              not null,
+   ISBN                 VARCHAR2(10)         not null,
+   CANTIDAD             NUMBER(10)              not null,
+   constraint PK_DETALLES_COMPRA primary key (ID_DETALLE)
+);
+
+
+/*==============================================================*/
+/* Table: EDICIONES                                             */
+/*==============================================================*/
+create table EDICIONES 
+(
+   ID_LIBRO             NUMBER(10)              not null,
+   ISBN                 VARCHAR2(10)         not null,
+   ANIO_PUBLICACION     NUMBER(4)             not null,
+   NUMERO               NUMBER(10)              not null,
+   DESCRIPCION          VARCHAR2(150)        not null,
+   constraint PK_EDICIONES primary key (ID_LIBRO, ISBN)
+);
+
+/*==============================================================*/
+/* Table: LIBROS                                                */
+/*==============================================================*/
+create table LIBROS 
+(
+   ID_LIBRO             NUMBER(10)              not null,
+   ISBN                 VARCHAR2(10)         not null,
+   TITULO               VARCHAR2(200)        not null,
+   PRECIO               NUMBER(8,2)          not null,
+   constraint PK_LIBROS primary key (ID_LIBRO,ISBN)
+);
+
+/*==============================================================*/
+/* Table: PERSONAS                                              */
+/*==============================================================*/
+create table PERSONAS 
+(
+   ID_PERSONA           NUMBER(10)              not null,
+   NOMBRES              VARCHAR2(50)         not null,
+   APELLIDOS            VARCHAR2(50)         not null,
+   constraint PK_PERSONAS primary key (ID_PERSONA)
+);
+
+/*==============================================================*/
+/* Table: NACIONALIDADES                                              */
+/*==============================================================*/
+create table NACIONALIDADES 
+(
+   ID_NACIONALIDAD           NUMBER(10)              not null,
+   NOMBRE_NACIONALIDAD              VARCHAR2(50)         not null,
+   constraint PK_NACIONALIDADES primary key (ID_NACIONALIDAD)
+);
+
+/*==============================================================*/
+/* Table: NACIONALIDADES                                              */
+/*==============================================================*/
+create table NACIONALIDADES_PERSONAS 
+(
+   ID_NACIONALIDAD   NUMBER(10)              not null,
+   ID_PERSONA        NUMBER(10)              not null,
+   ANIO              NUMBER(4)               not null,
+   constraint PK_NACIONALIDADES_PERSONAS primary key (ID_NACIONALIDAD,ID_PERSONA)
+);
+
+alter table AUTOR_LIBRO
+   add constraint FK_LIBRO_AUTOR foreign key (ID_AUTOR)
+      references PERSONAS (ID_PERSONA);
+
+alter table AUTOR_LIBRO
+   add constraint FK_AUTOR_LIBROS foreign key (ID_LIBRO,ISBN)
+      references LIBROS (ID_LIBRO,ISBN);
+
+alter table COMPRAS
+   add constraint FK_COMPRAS_PERSONA foreign key (ID_PERSONA)
+      references PERSONAS (ID_PERSONA);
+
+alter table DETALLES_COMPRA
+   add constraint FK_DETALLES_COMPRA foreign key (ID_COMPRA)
+      references COMPRAS (ID_COMPRA);
+
+alter table DETALLES_COMPRA
+   add constraint FK_DETALLES_COM_LIBRO foreign key (ID_LIBRO,ISBN)
+      references LIBROS (ID_LIBRO,ISBN);
+
+alter table EDICIONES
+   add constraint FK_LIBRO_EDICION foreign key (ID_LIBRO,ISBN)
+      references LIBROS (ID_LIBRO,ISBN);
+
+alter table NACIONALIDADES_PERSONAS
+   add constraint FK_NACIONALIDADES_PERSONAS foreign key (ID_NACIONALIDAD)
+      references NACIONALIDADES (ID_NACIONALIDAD);
+
+alter table NACIONALIDADES_PERSONAS
+   add constraint FK_PERSONAS_NACIONALIDADES foreign key (ID_PERSONA)
+      references PERSONAS (ID_PERSONA);
+
+
+create sequence COMPRAS_SEQ start with 2000 increment by 1 maxvalue 1000000 minvalue 1 nocycle;
+create sequence DETALLES_COMPRA_SEQ start with 3000 increment by 1 maxvalue 1000000 minvalue 1 nocycle;
+create sequence LIBROS_SEQ start with 5000 increment by 1 maxvalue 1000000 minvalue 1 nocycle;
+create sequence PERSONAS_SEQ start with 6000 increment by 1 maxvalue 1000000 minvalue 1 nocycle;
+create sequence NACIONALIDADES_SEQ start with 6000 increment by 1 maxvalue 1000000 minvalue 1 nocycle;
