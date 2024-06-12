@@ -79,6 +79,7 @@ public class Machine {
 
     public void setProductTypes(List<ProductType> productTypes) {
         this.productTypes = productTypes;
+    }
 
     public List<Worker> getWorkers() {
         return workers;
