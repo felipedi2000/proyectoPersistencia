@@ -1,11 +1,9 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "MAQUINA")
@@ -13,14 +11,21 @@ public class Machine {
     @Id
     @Column(name = "ID_MAQUINA")
     private long id;
+
     @Column(name = "NUMERO_SERIE")
     private String serialNumber;
+
     @Column(name = "MARCA")
     private String brand;
+
     @Column(name = "MODELO")
     private String model;
+
     @Column(name = "FECHA_COMPRA")
     private Date datePurchase;
+
+    @ManyToMany(mappedBy = "machines")
+    private List<Worker> workers;
 
     public Machine() {
     }
@@ -63,6 +68,14 @@ public class Machine {
 
     public void setDatePurchase(Date datePurchase) {
         this.datePurchase = datePurchase;
+    }
+
+    public List<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(List<Worker> workers) {
+        this.workers = workers;
     }
 
     @Override
