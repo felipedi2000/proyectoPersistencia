@@ -1,9 +1,8 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "TIPO_PRODUCTO")
@@ -11,10 +10,13 @@ public class ProductType {
     @Id
     @Column(name = "ID_TIPO_PRODUCTO")
     private long id;
+
     @Column(name = "ID_MATERIAL")
     private long idMaterial;
+
     @Column(name = "ID_MAQUINA")
     private long idMachine;
+
     @Column(name = "NOMBRE")
     private String name;
 

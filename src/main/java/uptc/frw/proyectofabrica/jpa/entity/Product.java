@@ -1,9 +1,8 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "PRODUCTOS")
@@ -11,12 +10,18 @@ public class Product {
     @Id
     @Column(name = "ID_PRODUCTO")
     private long id;
+
     @Column(name = "ID_TIPO_PRODUCTO")
     private long idTypeProduct;
+
     @Column(name = "NOMBRE")
     private String name;
+
     @Column(name = "DESCRIPCION")
     private String description;
+
+    @OneToMany(mappedBy = "product")
+    private List<PurchaseDetail> PurchaseDetails;
 
     public Product() {
     }
@@ -51,6 +56,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<PurchaseDetail> getPurchaseDetails() {
+        return PurchaseDetails;
+    }
+
+    public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
+        PurchaseDetails = purchaseDetails;
     }
 
     @Override
