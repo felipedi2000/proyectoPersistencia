@@ -1,11 +1,9 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "trabajadores")
@@ -26,6 +24,17 @@ public class Worker {
 
     @Column(name = "direccion")
     private String adress;
+
+    @ManyToMany(mappedBy = "workers")
+    private List<Ability> abilities;
+
+    @ManyToMany
+    @JoinTable(
+            name = "trabajador_maquina",
+            joinColumns = @JoinColumn(name = "id_trabajador"),
+            inverseJoinColumns = @JoinColumn(name = "id_maquina")
+    )
+    private List<Machine> machines;
 
     public Worker() {
     }
@@ -68,6 +77,22 @@ public class Worker {
 
     public void setAdress(String adress) {
         this.adress = adress;
+    }
+
+    public List<Ability> getAbilities() {
+        return abilities;
+    }
+
+    public void setAbilities(List<Ability> abilities) {
+        this.abilities = abilities;
+    }
+
+    public List<Machine> getMachines() {
+        return machines;
+    }
+
+    public void setMachines(List<Machine> machines) {
+        this.machines = machines;
     }
 
     @Override

@@ -1,9 +1,8 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table
@@ -15,6 +14,14 @@ public class Ability {
 
     @Column(name = "nombre")
     private String name;
+
+    @ManyToMany
+    @JoinTable(
+            name = "trabajador_habilidad",
+            joinColumns = @JoinColumn(name = "id_habilidad"),
+            inverseJoinColumns = @JoinColumn(name = "id_trabajado")
+    )
+    private List<Worker> workers;
 
     public Ability() {
     }
@@ -33,6 +40,14 @@ public class Ability {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(List<Worker> workers) {
+        this.workers = workers;
     }
 
     @Override

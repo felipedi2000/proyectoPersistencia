@@ -10,10 +10,13 @@ public class ProductType {
     @Id
     @Column(name = "ID_TIPO_PRODUCTO")
     private long id;
+
     @Column(name = "ID_MATERIAL")
     private long idMaterial;
+
     @Column(name = "ID_MAQUINA")
     private long idMachine;
+
     @Column(name = "NOMBRE")
     private String name;
 

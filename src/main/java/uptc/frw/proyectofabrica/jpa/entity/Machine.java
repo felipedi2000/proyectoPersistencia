@@ -11,17 +11,24 @@ public class Machine {
     @Id
     @Column(name = "ID_MAQUINA")
     private long id;
+
     @Column(name = "NUMERO_SERIE")
     private String serialNumber;
+
     @Column(name = "MARCA")
     private String brand;
+
     @Column(name = "MODELO")
     private String model;
+
     @Column(name = "FECHA_COMPRA")
     private Date datePurchase;
 
     @OneToMany(mappedBy = "machine")
     private List<ProductType> productTypes;
+
+    @ManyToMany(mappedBy = "machines")
+    private List<Worker> workers;
 
     public Machine() {
     }
@@ -72,6 +79,14 @@ public class Machine {
 
     public void setProductTypes(List<ProductType> productTypes) {
         this.productTypes = productTypes;
+
+    public List<Worker> getWorkers() {
+        return workers;
+    }
+
+    public void setWorkers(List<Worker> workers) {
+        this.workers = workers;
+
     }
 
     @Override

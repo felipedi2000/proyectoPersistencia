@@ -1,11 +1,9 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDEN_COMPRA")
@@ -14,14 +12,25 @@ public class PurchaseOrder {
     @Id
     @Column(name = "ID_ORDEN_COMPRA")
     private long id;
+
     @Column(name = "ID_CLIENTE")
     private long idClient;
+
     @Column(name = "NUMERO_ORDEN")
     private long orderNumber;
+
     @Column(name = "FECHA_ENTREGA_ESPERADA")
     private Date orderExpectedDelivery;
+
     @Column(name = "FECHA_ENTREGA_REAL")
     private Date orderActualDelivery;
+
+    @OneToMany(mappedBy = "purchaseOrder")
+    private List<PurchaseDetail> PurchaseDetails;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_CLIENTE")
+    private Client client;
 
     public PurchaseOrder() {
     }
@@ -64,6 +73,22 @@ public class PurchaseOrder {
 
     public void setOrderActualDelivery(Date orderActualDelivery) {
         this.orderActualDelivery = orderActualDelivery;
+    }
+
+    public List<PurchaseDetail> getPurchaseDetails() {
+        return PurchaseDetails;
+    }
+
+    public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
+        PurchaseDetails = purchaseDetails;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override

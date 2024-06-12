@@ -2,22 +2,32 @@ package uptc.frw.proyectofabrica.jpa.entity;
 
 import jakarta.persistence.*;
 
+
+import java.util.List;
+
+
 @Entity
 @Table(name = "PRODUCTOS")
 public class Product {
     @Id
     @Column(name = "ID_PRODUCTO")
     private long id;
+
     @Column(name = "ID_TIPO_PRODUCTO")
     private long idTypeProduct;
+
     @Column(name = "NOMBRE")
     private String name;
+
     @Column(name = "DESCRIPCION")
     private String description;
 
     @ManyToOne
     @JoinColumn(name = "ID_TIPO_PRODUCTO")
     private ProductType productType;
+
+    @OneToMany(mappedBy = "product")
+    private List<PurchaseDetail> PurchaseDetails;
 
     public Product() {
     }
@@ -60,6 +70,13 @@ public class Product {
 
     public void setProductType(ProductType productType) {
         this.productType = productType;
+
+    public List<PurchaseDetail> getPurchaseDetails() {
+        return PurchaseDetails;
+    }
+
+    public void setPurchaseDetails(List<PurchaseDetail> purchaseDetails) {
+        PurchaseDetails = purchaseDetails;
     }
 
     @Override
