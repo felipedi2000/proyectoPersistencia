@@ -1,9 +1,8 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "TIPO_PRODUCTO")
@@ -17,6 +16,17 @@ public class ProductType {
     private long idMachine;
     @Column(name = "NOMBRE")
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_MAQUINA")
+    private Machine machine;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_MATERIAL")
+    private Material material;
+
+    @OneToMany(mappedBy = "productType")
+    private List<Product> products;
 
     public ProductType() {
     }
@@ -51,6 +61,30 @@ public class ProductType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
+    }
+
+    public Material getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(Material material) {
+        this.material = material;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     @Override

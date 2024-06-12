@@ -1,11 +1,9 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "MAQUINA")
@@ -21,6 +19,9 @@ public class Machine {
     private String model;
     @Column(name = "FECHA_COMPRA")
     private Date datePurchase;
+
+    @OneToMany(mappedBy = "machine")
+    private List<ProductType> productTypes;
 
     public Machine() {
     }
@@ -63,6 +64,14 @@ public class Machine {
 
     public void setDatePurchase(Date datePurchase) {
         this.datePurchase = datePurchase;
+    }
+
+    public List<ProductType> getProductTypes() {
+        return productTypes;
+    }
+
+    public void setProductTypes(List<ProductType> productTypes) {
+        this.productTypes = productTypes;
     }
 
     @Override
