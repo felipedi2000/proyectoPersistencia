@@ -24,6 +24,9 @@ public class Machine {
     @Column(name = "FECHA_COMPRA")
     private Date datePurchase;
 
+    @OneToMany(mappedBy = "machine")
+    private List<ProductType> productTypes;
+
     @ManyToMany(mappedBy = "machines")
     private List<Worker> workers;
 
@@ -70,12 +73,20 @@ public class Machine {
         this.datePurchase = datePurchase;
     }
 
+    public List<ProductType> getProductTypes() {
+        return productTypes;
+    }
+
+    public void setProductTypes(List<ProductType> productTypes) {
+        this.productTypes = productTypes;
+
     public List<Worker> getWorkers() {
         return workers;
     }
 
     public void setWorkers(List<Worker> workers) {
         this.workers = workers;
+
     }
 
     @Override

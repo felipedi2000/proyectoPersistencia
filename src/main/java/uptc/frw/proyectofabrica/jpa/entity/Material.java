@@ -1,9 +1,8 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "MATERIALES")
@@ -13,6 +12,9 @@ public class Material {
     private long id;
     @Column(name = "NOMBRE")
     private String name;
+
+    @OneToMany(mappedBy = "material")
+    private List<ProductType> productTypes;
 
     public Material() {
     }
@@ -31,6 +33,14 @@ public class Material {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<ProductType> getProductTypes() {
+        return productTypes;
+    }
+
+    public void setProductTypes(List<ProductType> productTypes) {
+        this.productTypes = productTypes;
     }
 
     @Override
