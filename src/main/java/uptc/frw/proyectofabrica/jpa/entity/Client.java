@@ -1,9 +1,8 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "CLIENTE")
@@ -12,14 +11,21 @@ public class Client {
     @Id
     @Column(name = "ID_CLIENTE")
     private long id;
+
     @Column(name = "NOMBRE")
     private String name;
+
     @Column(name = "DIRECCION")
     private String address;
+
     @Column(name = "TELEFONO")
     private long phoneNumber;
+
     @Column(name = "NOMBRE_CONTACTO")
     private String contactName;
+
+    @OneToMany(mappedBy = "client")
+    private List<PurchaseOrder> PurchaseOrders;
 
     public Client() {
     }
@@ -62,6 +68,14 @@ public class Client {
 
     public void setContactName(String contactName) {
         this.contactName = contactName;
+    }
+
+    public List<PurchaseOrder> getPurchaseOrders() {
+        return PurchaseOrders;
+    }
+
+    public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
+        PurchaseOrders = purchaseOrders;
     }
 
     @Override

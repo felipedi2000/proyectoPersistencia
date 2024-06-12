@@ -1,27 +1,51 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "DETALLE_COMPRA")
 public class PurchaseDetail {
 
     @Id
-    @Column(name = "ID_ORDEN_COMPRA")
+    @Column(name = "ID_DETALLE_COMPRA")
     private long id;
+
     @Column(name = "ID_PRODUCTO", insertable = false, updatable = false)
     private long idProduct;
-    @Column(name = "ID_ORDEN", insertable = false, updatable = false)
+
+    @Column(name = "ID_ORDEN_COMPRA", insertable = false, updatable = false)
     private long idPurchaseOrder;
+
     @Column(name = "QUANTITY")
     private long quantity;
+
     @Column(name = "PRICE")
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_PRODUCTO")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "ID_ORDEN_COMPRA")
+    private PurchaseOrder purchaseOrder;
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
 
     public PurchaseDetail() {
     }
