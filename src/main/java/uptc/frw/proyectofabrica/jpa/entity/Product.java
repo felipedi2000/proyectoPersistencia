@@ -70,6 +70,7 @@ public class Product {
 
     public void setProductType(ProductType productType) {
         this.productType = productType;
+    }
 
     public List<PurchaseDetail> getPurchaseDetails() {
         return PurchaseDetails;
