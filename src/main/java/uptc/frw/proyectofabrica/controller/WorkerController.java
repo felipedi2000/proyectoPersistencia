@@ -38,4 +38,9 @@ public class WorkerController {
     public Worker updateWorker(@RequestBody Worker worker) {
         return workerService.updateWorker(worker);
     }
+
+    @PostMapping("/{idWorker}/machine/{idMachine}")
+    public Worker registerMachineWorker(@PathVariable long idWorker,@PathVariable long idMachine){
+        return workerService.saveMachineWorker(idWorker, idMachine);
+    }
 }
