@@ -2,7 +2,10 @@ package uptc.frw.proyectofabrica.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uptc.frw.proyectofabrica.jpa.entity.Ability;
+import uptc.frw.proyectofabrica.jpa.entity.Machine;
 import uptc.frw.proyectofabrica.jpa.entity.Worker;
+import uptc.frw.proyectofabrica.jpa.repository.AbilityRepository;
 import uptc.frw.proyectofabrica.jpa.repository.WorkerRepository;
 
 import java.util.List;
@@ -12,6 +15,9 @@ public class WorkerService {
 
     @Autowired
     private WorkerRepository workerRepository;
+
+    @Autowired
+    private MachineService machineService;
 
     public List<Worker> findAllWorkers() {
         return workerRepository.findAll();
@@ -35,6 +41,13 @@ public class WorkerService {
         worker.setLastName(newWorker.getLastName());
         worker.setBornDate(newWorker.getBornDate());
         worker.setAdress(newWorker.getAdress());
+        return workerRepository.save(worker);
+    }
+
+    public Worker saveMachineWorker(long idWorker, long idMachine){
+        Worker worker = findWorkerById(idWorker);
+        Machine machine =  machineService.findMachineById(idMachine);
+        worker.getMachines().add(machine);
         return workerRepository.save(worker);
     }
 }

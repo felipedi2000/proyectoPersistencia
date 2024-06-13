@@ -3,6 +3,7 @@ package uptc.frw.proyectofabrica.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import uptc.frw.proyectofabrica.jpa.entity.Ability;
+import uptc.frw.proyectofabrica.jpa.entity.Worker;
 import uptc.frw.proyectofabrica.service.AbilityService;
 
 import java.util.List;
@@ -37,5 +38,10 @@ public class AbilityController {
     @PutMapping
     public Ability updateAbility(@RequestBody Ability ability) {
         return abilityService.updateAbility(ability);
+    }
+
+    @PostMapping("/{idAbility}/worker/{idWorker}")
+    public Ability registerAbilityWorker(@PathVariable long idAbility, @PathVariable long idWorker){
+        return abilityService.saveAbilityWorker(idAbility, idWorker);
     }
 }
