@@ -36,7 +36,9 @@ public class PurchaseOrderService {
     }
 
     public PurchaseOrder updatePurchaseOrder(PurchaseOrder purchaseOrderNew){
+        Client client = clientService.findClientById(purchaseOrderNew.getIdClient());
         PurchaseOrder purchaseOrder = findPurchaseOrderById(purchaseOrderNew.getId());
+        purchaseOrder.setClient(client);
         purchaseOrder.setOrderNumber(purchaseOrderNew.getOrderNumber());
         purchaseOrder.setOrderExpectedDelivery(purchaseOrderNew.getOrderExpectedDelivery());
         purchaseOrder.setOrderActualDelivery(purchaseOrderNew.getOrderActualDelivery());

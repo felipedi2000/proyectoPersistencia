@@ -38,7 +38,11 @@ public class PurchaseDetailService {
 
 
     public PurchaseDetail updatePurchaseDetail(PurchaseDetail purchaseDetailNew){
+        Product product = productService.findProductById(purchaseDetailNew.getIdProduct());
+        PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseDetailNew.getIdPurchaseOrder());
         PurchaseDetail purchaseDetail = findPurchaseDetailById(purchaseDetailNew.getId());
+        purchaseDetail.setProduct(product);
+        purchaseDetail.setPurchaseOrder(purchaseOrder);
         purchaseDetail.setQuantity(purchaseDetailNew.getQuantity());
         purchaseDetail.setPrice(purchaseDetailNew.getPrice());
         return purchaseDetailRepository.save(purchaseDetail);
