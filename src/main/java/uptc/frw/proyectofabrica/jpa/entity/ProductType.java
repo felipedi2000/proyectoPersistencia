@@ -11,10 +11,10 @@ public class ProductType {
     @Column(name = "ID_TIPO_PRODUCTO")
     private long id;
 
-    @Column(name = "ID_MATERIAL")
+    @Column(name = "ID_MATERIAL", insertable = false, updatable = false)
     private long idMaterial;
 
-    @Column(name = "ID_MAQUINA")
+    @Column(name = "ID_MAQUINA", insertable = false, updatable = false)
     private long idMachine;
 
     @Column(name = "NOMBRE")

@@ -7,9 +7,11 @@ import java.util.List;
 @Entity
 @Table(name = "MATERIALES")
 public class Material {
+
     @Id
     @Column(name = "ID_MATERIAL")
     private long id;
+
     @Column(name = "NOMBRE")
     private String name;
 

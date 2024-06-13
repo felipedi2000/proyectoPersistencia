@@ -13,7 +13,7 @@ public class PurchaseOrder {
     @Column(name = "ID_ORDEN_COMPRA")
     private long id;
 
-    @Column(name = "ID_CLIENTE")
+    @Column(name = "ID_CLIENTE", insertable = false, updatable = false)
     private long idClient;
 
     @Column(name = "NUMERO_ORDEN")

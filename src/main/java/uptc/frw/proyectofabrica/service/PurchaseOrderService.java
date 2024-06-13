@@ -25,7 +25,6 @@ public class PurchaseOrderService {
     }
 
     public PurchaseOrder findPurchaseOrderById(long id) {
-
         return purchaseOrderRepository.findById(id).orElse(null);
     }
 
@@ -46,8 +45,6 @@ public class PurchaseOrderService {
     }
 
     public void deletePurchaseOrder(long id) {
-
         purchaseOrderRepository.deleteById(id);
-
     }
 }

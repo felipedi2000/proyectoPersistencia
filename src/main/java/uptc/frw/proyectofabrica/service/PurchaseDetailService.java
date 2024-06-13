@@ -14,8 +14,10 @@ public class PurchaseDetailService {
 
     @Autowired
     private PurchaseDetailRepository purchaseDetailRepository;
+
     @Autowired
     private PurchaseOrderService purchaseOrderService;
+
     @Autowired
     private ProductService productService;
 
@@ -24,7 +26,6 @@ public class PurchaseDetailService {
     }
 
     public PurchaseDetail findPurchaseDetailById(long id) {
-
         return purchaseDetailRepository.findById(id).orElse(null);
     }
 
@@ -32,7 +33,7 @@ public class PurchaseDetailService {
         Product product = productService.findProductById(purchaseDetail.getIdProduct());
         PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseDetail.getIdPurchaseOrder());
         purchaseDetail.setProduct(product);
-       purchaseDetail.setPurchaseOrder(purchaseOrder);
+        purchaseDetail.setPurchaseOrder(purchaseOrder);
         return purchaseDetailRepository.save(purchaseDetail);
     }
 
@@ -49,9 +50,7 @@ public class PurchaseDetailService {
     }
 
     public void deletePurchaseDetail(long id) {
-
         purchaseDetailRepository.deleteById(id);
-
     }
 
 }

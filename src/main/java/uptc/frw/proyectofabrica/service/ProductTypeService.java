@@ -14,8 +14,10 @@ public class ProductTypeService {
 
     @Autowired
     private ProductTypeRepository productTypeRepository;
+
     @Autowired
     private MachineService machineService;
+
     @Autowired
     private MaterialService materialService;
 
@@ -28,7 +30,7 @@ public class ProductTypeService {
     }
 
     public ProductType saveProductType(ProductType productType){
-        Machine machine = machineService.findMacineById(productType.getIdMachine());
+        Machine machine = machineService.findMachineById(productType.getIdMachine());
         Material material = materialService.findMaterialById(productType.getIdMaterial());
         productType.setMachine(machine);
         productType.setMaterial(material);
@@ -40,7 +42,7 @@ public class ProductTypeService {
     }
 
     public ProductType updateProductType(ProductType newProductType) {
-        Machine machine = machineService.findMacineById(newProductType.getIdMachine());
+        Machine machine = machineService.findMachineById(newProductType.getIdMachine());
         Material material = materialService.findMaterialById(newProductType.getIdMaterial());
         ProductType productType = findProductTypeById(newProductType.getId());
         productType.setMachine(machine);

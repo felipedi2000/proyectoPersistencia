@@ -13,7 +13,7 @@ public class Product {
     @Column(name = "ID_PRODUCTO")
     private long id;
 
-    @Column(name = "ID_TIPO_PRODUCTO")
+    @Column(name = "ID_TIPO_PRODUCTO",updatable = false,insertable = false)
     private long idTypeProduct;
 
     @Column(name = "NOMBRE")

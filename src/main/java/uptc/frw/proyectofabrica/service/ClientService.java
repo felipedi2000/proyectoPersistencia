@@ -10,15 +10,14 @@ import java.util.List;
 @Service
 public class ClientService {
 
-        @Autowired
-        private ClientRepository clientRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     public List<Client> findAllClients() {
         return clientRepository.findAll();
     }
 
     public Client findClientById(long id) {
-
         return clientRepository.findById(id).orElse(null);
     }
 
@@ -36,9 +35,6 @@ public class ClientService {
     }
 
     public void deleteClient(long id) {
-
         clientRepository.deleteById(id);
-
     }
-
-    }
+}
