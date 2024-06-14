@@ -19,17 +19,23 @@ public class PurchaseDetailService {
     private PurchaseOrderService purchaseOrderService;
 
     @Autowired
+    private OperationCrudService operationCrudService;
+
+    @Autowired
     private ProductService productService;
 
     public List<PurchaseDetail> findAllPurchaseDetail() {
+        operationCrudService.createOperationCrud("Se consultaron todos los detalles de las compras");
         return purchaseDetailRepository.findAll();
     }
 
     public PurchaseDetail findPurchaseDetailById(long id) {
+        operationCrudService.createOperationCrud("Se consulto un detalle de una compra con id: " + id);
         return purchaseDetailRepository.findById(id).orElse(null);
     }
 
     public PurchaseDetail savePurchaseDetail(PurchaseDetail purchaseDetail) {
+        operationCrudService.createOperationCrud("Se guardo un detalle de una compra con id: " + purchaseDetail.getId());
         Product product = productService.findProductById(purchaseDetail.getIdProduct());
         PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseDetail.getIdPurchaseOrder());
         purchaseDetail.setProduct(product);
@@ -37,8 +43,13 @@ public class PurchaseDetailService {
         return purchaseDetailRepository.save(purchaseDetail);
     }
 
+    public void deletePurchaseDetail(long id) {
+        operationCrudService.createOperationCrud("Se borro un detalle de una compra con id: " + id);
+        purchaseDetailRepository.deleteById(id);
+    }
 
     public PurchaseDetail updatePurchaseDetail(PurchaseDetail purchaseDetailNew){
+        operationCrudService.createOperationCrud("Se actualizo un detalle de una compra con id: " + purchaseDetailNew.getId());
         Product product = productService.findProductById(purchaseDetailNew.getIdProduct());
         PurchaseOrder purchaseOrder = purchaseOrderService.findPurchaseOrderById(purchaseDetailNew.getIdPurchaseOrder());
         PurchaseDetail purchaseDetail = findPurchaseDetailById(purchaseDetailNew.getId());
@@ -48,9 +59,4 @@ public class PurchaseDetailService {
         purchaseDetail.setPrice(purchaseDetailNew.getPrice());
         return purchaseDetailRepository.save(purchaseDetail);
     }
-
-    public void deletePurchaseDetail(long id) {
-        purchaseDetailRepository.deleteById(id);
-    }
-
 }
