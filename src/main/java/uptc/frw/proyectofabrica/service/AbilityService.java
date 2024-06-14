@@ -18,23 +18,31 @@ public class AbilityService {
     @Autowired
     private WorkerService workerService;
 
+    @Autowired
+    private OperationCrudService operationCrudService;
+
     public List<Ability> findAllAbilities() {
+        operationCrudService.createOperationCrud("Se consultaron todos las habilidades");
         return abilityRepository.findAll();
     }
 
     public Ability findAbilityById(long id){
+        operationCrudService.createOperationCrud("Se consulto una habilidad con id: " + id);
         return abilityRepository.findById(id).orElse(null);
     }
 
     public Ability saveAbility (Ability ability) {
+        operationCrudService.createOperationCrud("Se guardo una habilidad con id: " + ability.getId());
         return abilityRepository.save(ability);
     }
 
     public void deleteAbility (long id) {
+        operationCrudService.createOperationCrud("Se borro una habilidad con id: " + id);
         abilityRepository.deleteById(id);
     }
 
     public Ability updateAbility (Ability newAbility) {
+        operationCrudService.createOperationCrud("Se actualizo una habilidad con id: " + newAbility.getId());
         Ability Ability = findAbilityById(newAbility.getId());
         Ability.setName(newAbility.getName());
         return abilityRepository.save(Ability);
@@ -44,6 +52,8 @@ public class AbilityService {
         Ability ability = findAbilityById(idAbility);
         Worker worker =  workerService.findWorkerById(idWorker);
         ability.getWorkers().add(worker);
+        operationCrudService.createOperationCrud("Se guardo un habilidad  con id: " + idAbility +
+                " para el trabajador con id: " + idWorker);
         return abilityRepository.save(ability);
     }
 }

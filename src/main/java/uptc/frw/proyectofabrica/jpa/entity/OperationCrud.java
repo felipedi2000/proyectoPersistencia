@@ -13,47 +13,6 @@ import java.util.Date;
 @Document(indexName = "operaciones_crud", createIndex = true)
 public class OperationCrud {
 
-    /*@Id
-    private String id;
-    private String message;
-    private LocalDateTime date;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public OperationCrud() {
-    }
-
-    @Override
-    public String toString() {
-        return "OperationCrud{" +
-                "id='" + id + '\'' +
-                ", message='" + message + '\'' +
-                ", date=" + date +
-                '}';
-    }*/
-
     @Id
     private String id;
 

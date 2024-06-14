@@ -13,28 +13,35 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private OperationCrudService operationCrudService;
+
     public List<Client> findAllClients() {
+        operationCrudService.createOperationCrud("Se consultaron todos los clientes");
         return clientRepository.findAll();
     }
 
     public Client findClientById(long id) {
+        operationCrudService.createOperationCrud("Se consulto un cliente con id: " + id);
         return clientRepository.findById(id).orElse(null);
     }
 
     public Client saveClient(Client client) {
-        return clientRepository.save(client);
-    }
-
-
-    public Client updateClient(Client clientNew){
-        Client client = findClientById(clientNew.getId());
-        client.setName(clientNew.getName());
-        client.setName(clientNew.getAddress());
-        client.setName(clientNew.getContactName());
+        operationCrudService.createOperationCrud("Se guardo un cliente con id: " + client.getId());
         return clientRepository.save(client);
     }
 
     public void deleteClient(long id) {
+        operationCrudService.createOperationCrud("Se borro un cliente con id: " + id);
         clientRepository.deleteById(id);
+    }
+
+    public Client updateClient(Client newClient){
+        operationCrudService.createOperationCrud("Se actualizo un cliente con id: " + newClient.getId());
+        Client client = findClientById(newClient.getId());
+        client.setName(newClient.getName());
+        client.setName(newClient.getAddress());
+        client.setName(newClient.getContactName());
+        return clientRepository.save(client);
     }
 }
