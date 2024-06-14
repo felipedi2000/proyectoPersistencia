@@ -1,5 +1,6 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 public class ProductType {
     @Id
     @Column(name = "ID_TIPO_PRODUCTO")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "ID_MATERIAL", insertable = false, updatable = false)
@@ -28,6 +30,7 @@ public class ProductType {
     @JoinColumn(name = "ID_MATERIAL")
     private Material material;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "productType")
     private List<Product> products;
 

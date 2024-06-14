@@ -1,5 +1,6 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.List;
 public class Machine {
     @Id
     @Column(name = "ID_MAQUINA")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "NUMERO_SERIE")
@@ -24,9 +26,11 @@ public class Machine {
     @Column(name = "FECHA_COMPRA")
     private Date datePurchase;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "machine")
     private List<ProductType> productTypes;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "machines")
     private List<Worker> workers;
 
