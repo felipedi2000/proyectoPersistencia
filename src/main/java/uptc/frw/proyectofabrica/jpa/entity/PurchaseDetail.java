@@ -1,6 +1,7 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,6 +10,7 @@ public class PurchaseDetail {
 
     @Id
     @Column(name = "ID_DETALLE_COMPRA")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "ID_PRODUCTO", insertable = false, updatable = false)
@@ -17,16 +19,18 @@ public class PurchaseDetail {
     @Column(name = "ID_ORDEN_COMPRA", insertable = false, updatable = false)
     private long idPurchaseOrder;
 
-    @Column(name = "QUANTITY")
+    @Column(name = "CANTIDAD")
     private long quantity;
 
-    @Column(name = "PRICE")
+    @Column(name = "PRECIO")
     private double price;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_PRODUCTO")
     private Product product;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_ORDEN_COMPRA")
     private PurchaseOrder purchaseOrder;

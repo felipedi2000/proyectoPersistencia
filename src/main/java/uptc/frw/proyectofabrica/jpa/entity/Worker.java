@@ -1,5 +1,6 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ public class Worker {
 
     @Id
     @Column(name = "id_trabajador")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "nombre")
@@ -25,6 +27,7 @@ public class Worker {
     @Column(name = "direccion")
     private String adress;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "workers")
     private List<Ability> abilities;
 

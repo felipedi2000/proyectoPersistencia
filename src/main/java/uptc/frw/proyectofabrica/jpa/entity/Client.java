@@ -1,15 +1,17 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "CLIENTES")
 public class Client {
 
     @Id
     @Column(name = "ID_CLIENTE")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "NOMBRE")
@@ -24,6 +26,7 @@ public class Client {
     @Column(name = "NOMBRE_CONTACTO")
     private String contactName;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<PurchaseOrder> PurchaseOrders;
 

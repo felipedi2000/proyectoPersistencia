@@ -5,21 +5,22 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "HABILIDADES")
 public class Ability {
 
     @Id
-    @Column(name = "id_habilidad")
+    @Column(name = "ID_HABILIDAD")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "nombre")
+    @Column(name = "NOMBRE")
     private String name;
 
     @ManyToMany
     @JoinTable(
-            name = "trabajador_habilidad",
-            joinColumns = @JoinColumn(name = "id_habilidad"),
-            inverseJoinColumns = @JoinColumn(name = "id_trabajado")
+            name = "TRABAJADOR_HABILIDAD",
+            joinColumns = @JoinColumn(name = "ID_HABILIDAD"),
+            inverseJoinColumns = @JoinColumn(name = "ID_TRABAJADOR")
     )
     private List<Worker> workers;
 

@@ -1,5 +1,6 @@
 package uptc.frw.proyectofabrica.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ public class PurchaseOrder {
 
     @Id
     @Column(name = "ID_ORDEN_COMPRA")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "ID_CLIENTE", insertable = false, updatable = false)
@@ -25,9 +27,11 @@ public class PurchaseOrder {
     @Column(name = "FECHA_ENTREGA_REAL")
     private Date orderActualDelivery;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "purchaseOrder")
     private List<PurchaseDetail> PurchaseDetails;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_CLIENTE")
     private Client client;

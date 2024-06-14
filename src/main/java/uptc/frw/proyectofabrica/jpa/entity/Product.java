@@ -11,6 +11,7 @@ import java.util.List;
 public class Product {
     @Id
     @Column(name = "ID_PRODUCTO")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "ID_TIPO_PRODUCTO",updatable = false,insertable = false)
